@@ -1,0 +1,4 @@
+bin/
+build/
+opengl_experiments/Debug
+*.VC.opendb
