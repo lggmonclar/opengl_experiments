@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\math">
+      <UniqueIdentifier>{81e3c9b6-935a-49f7-b108-9e39eda3b408}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{89f4126e-917b-4aa3-8dfa-7a5d58120116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{16913416-1534-4a60-8dad-8d888b48749b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -21,5 +30,51 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\vector3.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\vector4.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\vector2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\matrix4.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\matrix3.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\4.2.texture.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\4.2.texture.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\5.1.texture.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\5.1.texture.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\fragment.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\vertex.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

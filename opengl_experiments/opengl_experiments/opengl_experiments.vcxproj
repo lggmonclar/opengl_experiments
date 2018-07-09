@@ -123,6 +123,24 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="stb_image.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="math\matrix3.h" />
+    <ClInclude Include="math\matrix4.h" />
+    <ClInclude Include="math\vector2.h" />
+    <ClInclude Include="math\vector3.h" />
+    <ClInclude Include="math\vector4.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\4.2.texture.frag" />
+    <None Include="shaders\4.2.texture.vert" />
+    <None Include="shaders\5.1.texture.frag" />
+    <None Include="shaders\5.1.texture.vert" />
+    <None Include="shaders\fragment.frag" />
+    <None Include="shaders\vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

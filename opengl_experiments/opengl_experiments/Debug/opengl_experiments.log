@@ -1,3 +1,4 @@
-﻿  glad.c
-  main.cpp
+﻿  main.cpp
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\shader.h(53): warning C4101: 'infoLog': unreferenced local variable
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\shader.h(52): warning C4101: 'success': unreferenced local variable
   opengl_experiments.vcxproj -> C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\opengl_experiments.exe
