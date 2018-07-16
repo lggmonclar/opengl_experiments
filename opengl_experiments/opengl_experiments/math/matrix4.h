@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <iomanip>
 #include "vector3.h"
 #include "vector4.h"
 
@@ -16,34 +18,46 @@ public:
 	}
 
 	Matrix4() :
-		v {
-			1, 0, 0, 0,
-			0, 1, 0, 0,
-			0, 0, 1, 0,
-			0, 0, 0, 1
-		}
+		v{
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	}
 	{}
 
 	Matrix4(float v00, float v01, float v02, float v03,
-			float v10, float v11, float v12, float v13,
-			float v20, float v21, float v22, float v23,
-			float v30, float v31, float v32, float v33) :
-		v {
-			v00, v01, v02, v03,
-			v10, v11, v12, v13,
-			v20, v21, v22, v23,
-			v30, v31, v32, v33,
-		}
+		float v10, float v11, float v12, float v13,
+		float v20, float v21, float v22, float v23,
+		float v30, float v31, float v32, float v33) :
+		v{
+		v00, v01, v02, v03,
+		v10, v11, v12, v13,
+		v20, v21, v22, v23,
+		v30, v31, v32, v33,
+	}
 	{}
 
 	Matrix4(const Vector4& i, const Vector4& j, const Vector4& k, const Vector4 &l) :
-		v {
-			i.x, i.y, i.z, i.w,
-			j.x, j.y, j.z, j.w,
-			k.x, k.y, k.z, k.w,
-			l.x, l.y, l.z, l.w,
-		}
+		v{
+		i.x, i.y, i.z, i.w,
+		j.x, j.y, j.z, j.w,
+		k.x, k.y, k.z, k.w,
+		l.x, l.y, l.z, l.w,
+	}
 	{}
+
+	void printMatrix() {
+		const char separator = ' ';
+
+		for (int i = 0; i < 16; i++) {
+			if (i % 4 == 0) {
+				std::cout << std::endl;
+			}
+			std::cout << std::left << std::setw(10) << std::setfill(separator) << v[i];
+		}
+		std::cout << std::endl;
+	}
 
 	const float& operator ()(int i, int j) const {
 		return v[i * 4 + j];
@@ -78,7 +92,7 @@ public:
 		);
 	}
 
-	Matrix4 operator *=(const Matrix4& N) {
+	Matrix4& operator *=(const Matrix4& N) {
 		Matrix4 M = *this;
 
 		v[0] = M(0, 0) * N(0, 0) + M(0, 1) * N(1, 0) + M(0, 2) * N(2, 0) + M(0, 3) * N(3, 0);
@@ -114,96 +128,120 @@ public:
 		);
 	}
 
-	Matrix4 scale(float x, float y, float z) {
-		return Matrix4(
-			v[0] * x, v[1]		, v[2]		, v[3],
-			v[4]	, v[5] * y	, v[6]		, v[7],
-			v[8]	, v[9]		, v[10]	* z	, v[11],
-			v[12]	, v[13]		, v[14]		, v[15]
-		);
-	}
-	
-	Matrix4 scale(float val) {
-		return scale(val, val, val);
-	}
-
-	Matrix4 scale(const Vector3& v) {
-		return scale(v.x, v.y, v.z);
-	}
-
-	Matrix4 reflectX() {
-		return scale(-1.0F, 1.0F, 1.0F);
-	}
-
-	Matrix4 reflectY() {
-		return scale(1.0F, -1.0F, 1.0F);
-	}
-
-	Matrix4 reflectZ() {
-		return scale(1.0F, 1.0F, -1.0F);
-	}
-
-	Matrix4 rotateX(float ang) {
-		float c = cos(ang);
-		float s = sin(ang);
-
-		return Matrix4(
-			1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f,  c  ,  -s	, 0.0f,
-			0.0f,  s  ,   c	, 0.0f,
+	Matrix4& scale(float x, float y, float z) {
+		return *this *= Matrix4(
+			x, 0.0f, 0.0f, 0.0f,
+			0.0f, y, 0.0f, 0.0f,
+			0.0f, 0.0f, z, 0.0f,
 			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
-	Matrix4 rotateY(float ang) {
+	Matrix4& scale(float val) {
+		return scale(val, val, val);
+	}
+
+	Matrix4& scale(const Vector3& v) {
+		return scale(v.x, v.y, v.z);
+	}
+
+	Matrix4& reflectX() {
+		return scale(-1.0f, 1.0f, 1.0f);
+	}
+
+	Matrix4& reflectY() {
+		return scale(1.0f, -1.0f, 1.0f);
+	}
+
+	Matrix4& reflectZ() {
+		return scale(1.0f, 1.0f, -1.0f);
+	}
+
+	Matrix4& rotateX(float ang) {
 		float c = cos(ang);
 		float s = sin(ang);
 
-		return Matrix4(
-			 c	, 0.0F,   s	, 0.0F,
-			0.0F, 1.0F, 0.0F, 0.0F,
-			-s	, 0.0F,   c	, 0.0F,
+		return *this *= Matrix4(
+			1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, c, -s, 0.0f,
+			0.0f, s, c, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		);
+	}
+
+	Matrix4& rotateY(float ang) {
+		float c = cos(ang);
+		float s = sin(ang);
+
+		return *this *= Matrix4(
+			c, 0.0f, s, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f,
+			-s, 0.0f, c, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		);
+	}
+
+	Matrix4& rotateZ(float ang) {
+		float c = cos(ang);
+		float s = sin(ang);
+
+		*this *= Matrix4(
+			c, -s, 0.0f, 0.0f,
+			s, c, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		);
+
+		return *this;
+	}
+
+	Matrix4& rotateAbout(float ang, const Vector3& axis) {
+		float c = cos(ang);
+		float s = sin(ang);
+		Vector3 ax = axis.normalized();
+
+		return *this *= Matrix4(
+			ax.x * ax.x * (1 - c) + c, ax.x * ax.y * (1 - c) + ax.z * s, ax.x * ax.z * (1 - c) - ax.y * s, 0.0F,
+
+			ax.x * ax.y * (1 - c) - ax.z * s, ax.y * ax.y * (1 - c) + c, ax.y * ax.z * (1 - c) + ax.x * s, 0.0F,
+
+			ax.x * ax.z * (1 - c) + ax.y * s, ax.y * ax.z * (1 - c) - ax.x * s, ax.z * ax.z * (1 - c) + c, 0.0F,
+
 			0.0F, 0.0F, 0.0F, 1.0F
 		);
 	}
 
-	Matrix4 rotateZ(float ang) {
-		float c = cos(ang);
-		float s = sin(ang);
-
-		return Matrix4(
-			 c	, -s  , 0.0F, 0.0F,
-			 s	,  c  , 0.0F, 0.0F,
-			0.0F, 0.0F, 1.0F, 0.0F,
-			0.0F, 0.0F, 0.0F, 1.0F
+	Matrix4& translate(float x, float y, float z) {
+		return *this *= Matrix4(
+			1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
+			x, y, z, 1.0f
 		);
 	}
 
-	Matrix4 rotateAbout(float ang, const Vector3& axis) {
-		float c = cos(ang);
-		float s = sin(ang);
-
-		return Matrix4(
-			axis.x * axis.x * (1 - c) + c,							axis.x * axis.y * (1 - c) + axis.z * s,		axis.x * axis.z * (1 - c) - axis.y * s,		0.0F,
-
-			axis.x * axis.y * (1 - c) - axis.z *					s, axis.y * axis.y * (1 - c) + c,			axis.y * axis.z * (1 - c)  + axis.x * s,	0.0F,
-
-			axis.x * axis.z * (1 - c) + axis.y * s,					axis.y * axis.z * (1 - c) - axis.x * s,		axis.z * axis.z * (1 - c) + c,				0.0F,
-
-			0.0F,													0.0F,										0.0F,										1.0F
-		);
-	}
-
-	Matrix4 translate(float x, float y, float z) {
-		return Matrix4(
-			1.0F, 0.0F, 0.0F, 0.0F,
-			0.0F, 1.0F, 0.0F, 0.0F,
-			0.0F, 0.0F, 1.0F, 0.0F,
-			x	,  y  ,  z	, 1.0F
-		);
-	}
-
-	Matrix4 translate(const Vector3& v) {
+	Matrix4& translate(const Vector3& v) {
 		return translate(v.x, v.y, v.z);
+	}
+
+	Matrix4& projectOrtographically() {
+
+	}
+
+	Matrix4& projectPerspectively(float fieldOfView, float aspectRatio, float nearPlane, float farPlane) {
+		float tanHalfFov = tan(fieldOfView / 2.0f);
+
+		float v11 = 1.0f / (aspectRatio * tanHalfFov);
+		float v22 = 1.0f / tanHalfFov;
+		float v33 = -(farPlane + nearPlane) / (farPlane - nearPlane);
+		float v34 = -1.0f;
+		float v43 = -(2 * farPlane * nearPlane) / (farPlane - nearPlane);
+
+		return *this *= Matrix4(
+			v11, 0.0f, 0.0f, 0.0f,
+			0.0f, v22, 0.0f, 0.0f,
+			0.0f, 0.0f, v33, v34,
+			0.0f, 0.0f, v43, 0.0f
+		);
 	}
 };

@@ -7,6 +7,11 @@ struct Vector3 {
 	Vector3() = default;
 	Vector3(float a, float b, float c) : x(a), y(b), z(c) {}
 
+	void print() {
+		std::cout << "[" << x << ", " << y << ", " << z << "]";
+		std::cout << std::endl;
+	}
+
 	operator float*() {
 		return reinterpret_cast<float*>(this);
 	}
@@ -16,6 +21,10 @@ struct Vector3 {
 	}
 
 	Vector3 operator +(const Vector3& v3) {
+		return Vector3(x + v3.x, y + v3.y, z + v3.z);
+	}
+
+	Vector3 operator +(const Vector3& v3) const {
 		return Vector3(x + v3.x, y + v3.y, z + v3.z);
 	}
 
@@ -30,6 +39,10 @@ struct Vector3 {
 		return Vector3(x - v3.x, y - v3.y, z - v3.z);
 	}
 
+	Vector3 operator -(const Vector3& v3) const {
+		return Vector3(x - v3.x, y - v3.y, z - v3.z);
+	}
+
 	Vector3 operator -=(const Vector3& v3) {
 		x -= v3.x;
 		y -= v3.y;
@@ -41,6 +54,10 @@ struct Vector3 {
 		return Vector3(x * s, y * s, z * s);
 	}
 
+	Vector3 operator *(float s) const {
+		return Vector3(x * s, y * s, z * s);
+	}
+
 	Vector3 operator *=(float s) {
 		x *= s;
 		y *= s;
@@ -49,6 +66,10 @@ struct Vector3 {
 	}
 
 	Vector3 operator /(float s) {
+		return Vector3(x / s, y / s, z / s);
+	}
+
+	Vector3 operator /(float s) const {
 		return Vector3(x / s, y / s, z / s);
 	}
 
@@ -75,7 +96,15 @@ struct Vector3 {
 		return sqrt(x * x + y * y + z * z);
 	}
 
+	const float magnitude() const {
+		return sqrt(x * x + y * y + z * z);
+	}
+
 	Vector3 normalized() {
+		return *this / magnitude();
+	}	
+	
+	const Vector3 normalized() const {
 		return *this / magnitude();
 	}
 };

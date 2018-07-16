@@ -56,6 +56,9 @@
     <ClInclude Include="math\matrix3.h">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="math_helpers.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\4.2.texture.frag">
@@ -74,6 +77,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\vertex.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\6.3.coordinate_systems.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\6.3.coordinate_systems.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
