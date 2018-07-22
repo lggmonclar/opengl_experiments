@@ -1,15 +1,21 @@
 ﻿  main.cpp
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\math\vector3.h(116): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\math\vector3.h(120): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\math\matrix4.h(265): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\math\matrix4.h(266): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\math\matrix4.h(267): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\shader.h(53): warning C4101: 'infoLog': unreferenced local variable
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\shader.h(52): warning C4101: 'success': unreferenced local variable
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(126): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(127): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(128): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(198): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(293): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(294): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(298): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(299): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(301): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(302): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(310): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(114): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(115): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(116): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(206): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(227): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(288): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(289): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(293): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(294): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(296): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(297): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(305): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   opengl_experiments.vcxproj -> C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\opengl_experiments.exe

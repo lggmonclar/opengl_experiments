@@ -6,7 +6,6 @@
 #include "camera.h"
 
 #include "math/math_helpers.h"
-#include "math/matrix3.h"
 #include "math/matrix4.h"
 #include "math/vector2.h"
 #include "math/vector3.h"
@@ -46,11 +45,19 @@ GLFWwindow* initWindow() {
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
+
+	// tell GLFW to capture our mouse
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		exit(-1);
 	}
+	// configure global opengl state
+	// -----------------------------
+	glEnable(GL_DEPTH_TEST);
 
 	return window;
 }
@@ -61,9 +68,7 @@ int main() {
 	// build and compile our shader program
 	// ------------------------------------
 	Shader ourShader("shaders/6.3.coordinate_systems.vert", "shaders/6.3.coordinate_systems.frag");
-	// configure global opengl state
-	// -----------------------------
-	glEnable(GL_DEPTH_TEST);
+
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
@@ -112,7 +117,7 @@ int main() {
 	};
 	// world space positions of our cubes
 	Vector3 cubePositions[] = {
-		Vector3(0.5f,  0.5f,  0.6f),
+		Vector3(0.0f,  0.0f,  0.0f),
 		Vector3(2.0f,  5.0f, -15.0f),
 		Vector3(-1.5f, -2.2f, -2.5f),
 		Vector3(-3.8f, -2.0f, -12.3f),
@@ -193,14 +198,15 @@ int main() {
 	ourShader.setInt("texture1", 0);
 	ourShader.setInt("texture2", 1);
 
-	Matrix4 V;
-	Matrix4 P;
-	P.projectPerspectively(deg2rad(45.0), WINDOW_WIDTH / WINDOW_HEIGHT, 0.1f, 100.0f);
-	//V.translate(0.0f, 0.0f, -3.0f);
-
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window)) {
+		// per-frame time logic
+		// --------------------
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		// input
 		// -----
 		processInput(window);
@@ -216,30 +222,18 @@ int main() {
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
-		// create transformations
-
-		//Matrix4 view;
-		// note that we're translating the scene in the reverse direction of where we want to move
-		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-
-		// get matrix's uniform location and set matrix
 		ourShader.use();
-		V = camera.getViewMatrix();
+		Matrix4 V = camera.getViewMatrix();
+		Matrix4 P = Matrix4::perspectiveProjection(deg2rad(camera.zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
 		// render boxes
 		glBindVertexArray(VAO);
-		for (unsigned int i = 0; i < 1; i++) {
+		for (unsigned int i = 0; i < 10; i++) {
 			Matrix4 M;
-			//M.rotateAbout((float)glfwGetTime(), Vector3(0.5f, 1.0f, 0.0f)).translate(cubePositions[i]);
 			M.translate(cubePositions[i]);
 			// calculate the model matrix for each object and pass it to shader before drawing
-			Matrix4 mvp = M * V*P;
-			//M.printMatrix();
-			V.printMatrix();
-			//P.printMatrix();
-			//mvp.printMatrix();
+			Matrix4 mvp = M * V * P;
 			ourShader.setMat4("mvp", mvp);
-			//(M*V*P).printMatrix();
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
@@ -296,7 +290,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	}
 
 	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	float yoffset = ypos - lastY;
 
 	lastX = xpos;
 	lastY = ypos;

@@ -80,7 +80,11 @@ struct Vector3 {
 		return *this;
 	}
 
-	float dot(Vector3 &v3) {
+	double dot(Vector3 &v3) {
+		return x * v3.x + y * v3.y + z * v3.z;
+	}
+
+	double dot(const Vector3 &v3) const {
 		return x * v3.x + y * v3.y + z * v3.z;
 	}
 
@@ -92,11 +96,19 @@ struct Vector3 {
 		);
 	}
 
-	float magnitude() {
+	Vector3 cross(Vector3 &v3) const {
+		return Vector3(
+			y * v3.z - z * v3.y,
+			z * v3.x - x * v3.z,
+			x * v3.y - y * v3.x
+		);
+	}
+
+	double magnitude() {
 		return sqrt(x * x + y * y + z * z);
 	}
 
-	const float magnitude() const {
+	const double magnitude() const {
 		return sqrt(x * x + y * y + z * z);
 	}
 

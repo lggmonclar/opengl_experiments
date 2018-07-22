@@ -228,7 +228,7 @@ public:
 
 	}
 
-	Matrix4& projectPerspectively(float fieldOfView, float aspectRatio, float nearPlane, float farPlane) {
+	static Matrix4 perspectiveProjection(float fieldOfView, float aspectRatio, float nearPlane, float farPlane) {
 		float tanHalfFov = tan(fieldOfView / 2.0f);
 
 		float v11 = 1.0f / (aspectRatio * tanHalfFov);
@@ -237,11 +237,35 @@ public:
 		float v34 = -1.0f;
 		float v43 = -(2 * farPlane * nearPlane) / (farPlane - nearPlane);
 
-		return *this *= Matrix4(
+		return Matrix4(
 			v11, 0.0f, 0.0f, 0.0f,
 			0.0f, v22, 0.0f, 0.0f,
 			0.0f, 0.0f, v33, v34,
 			0.0f, 0.0f, v43, 0.0f
 		);
+	}
+
+	Matrix4& lookAt(const Vector3 &position, const Vector3 &target, const Vector3 &worldUp) {
+		Vector3 zAxis = (position - target).normalized();
+		Vector3 xAxis = worldUp.cross(zAxis).normalized();
+		Vector3 yAxis = zAxis.cross(xAxis);
+
+		v[0] = xAxis.x;
+		v[1] = yAxis.x;
+		v[2] = zAxis.x;
+
+		v[4] = xAxis.y;
+		v[5] = yAxis.y;
+		v[6] = zAxis.y;
+
+		v[8] = xAxis.z;
+		v[9] = yAxis.z;
+		v[10] = zAxis.z;
+
+		v[12] = (xAxis.dot(position));
+		v[13] = (yAxis.dot(position));
+		v[14] = (zAxis.dot(position));
+
+		return *this;
 	}
 };
