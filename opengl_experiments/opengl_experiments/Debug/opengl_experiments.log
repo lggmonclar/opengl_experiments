@@ -9,27 +9,13 @@ c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(114): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(115): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(116): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(219): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(240): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(313): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(314): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(318): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(319): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(321): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(322): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(330): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-glfw3.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(context.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(init.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(input.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(monitor.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(vulkan.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(vulkan.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(window.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_init.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_joystick.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_joystick.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_monitor.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_time.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_time.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_tls.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_tls.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_window.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(wgl_context.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(egl_context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(egl_context.obj)' or at 'C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\glfw.pdb'; linking object as if no debug info
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(223): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(244): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(317): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(318): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(322): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(323): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(325): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(326): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(334): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   opengl_experiments.vcxproj -> C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\opengl_experiments.exe

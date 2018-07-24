@@ -109,5 +109,11 @@
     <None Include="shaders\line.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="shaders\3.1.materials.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\3.1.materials.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

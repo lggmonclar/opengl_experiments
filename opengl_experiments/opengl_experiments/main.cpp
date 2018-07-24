@@ -68,7 +68,7 @@ int main() {
 
 	// build and compile our shader program
 	// ------------------------------------
-	Shader boxShader("shaders/1.lit.vert", "shaders/1.lit.frag");
+	Shader boxShader("shaders/3.1.materials.vert", "shaders/3.1.materials.frag");
 	Shader lightBoxShader("shaders/1.light_box.vert", "shaders/1.light_box.frag");
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
@@ -132,7 +132,20 @@ int main() {
 	Vector3 lightboxPosition = Vector3(0.0, 0.0, 1.5);
 	unsigned int lightVAO, cubesVAO, VBO;
 
+	glGenVertexArrays(1, &cubesVAO);
+	glBindVertexArray(cubesVAO);
+
 	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	
+
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// normal attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
 	glGenVertexArrays(1, &lightVAO);
 	glBindVertexArray(lightVAO);
@@ -142,18 +155,6 @@ int main() {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-
-	glGenVertexArrays(1, &cubesVAO);
-	glBindVertexArray(cubesVAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	// normal attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
 
 	// load and create a texture 
 	// -------------------------
@@ -206,10 +207,13 @@ int main() {
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
 	boxShader.use();
-	//boxShader.setInt("texture1", 0);
-	//boxShader.setInt("texture2", 1);
-	boxShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	boxShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+	boxShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+	boxShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+	boxShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+	boxShader.setFloat("material.shininess", 32.0f);
+	boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+	boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
+	boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
 	// render loop
 	// -----------
@@ -251,7 +255,7 @@ int main() {
 		// render boxes
 		boxShader.use();
 		boxShader.setVec3("viewPos", camera.position);
-		boxShader.setVec3("lightPos", lightM.translation());
+		boxShader.setVec3("light.position", lightM.translation());
 		glBindVertexArray(cubesVAO);
 		for (unsigned int i = 0; i < 10; i++) {
 			Matrix4 M;
