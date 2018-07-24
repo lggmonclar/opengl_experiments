@@ -59,6 +59,12 @@
     <ClInclude Include="math_helpers.h">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\4.2.texture.frag">
@@ -83,6 +89,24 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\6.3.coordinate_systems.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\1.light_box.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\1.light_box.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\1.lit.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\1.lit.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\line.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\line.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

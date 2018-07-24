@@ -73,8 +73,7 @@ public:
 	}
 	// activate the shader
 	// ------------------------------------------------------------------------
-	void use()
-	{
+	void use() {
 		glUseProgram(ID);
 	}
 	// utility uniform functions

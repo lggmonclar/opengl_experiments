@@ -60,7 +60,7 @@ public:
 
 	// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 	Matrix4 getViewMatrix() {
-		return view.lookAt(position, position - front, up);
+		return view.lookAt(position, position + front, up);
 	}
 
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)

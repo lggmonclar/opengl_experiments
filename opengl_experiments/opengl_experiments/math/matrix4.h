@@ -262,10 +262,14 @@ public:
 		v[9] = yAxis.z;
 		v[10] = zAxis.z;
 
-		v[12] = (xAxis.dot(position));
-		v[13] = (yAxis.dot(position));
-		v[14] = (zAxis.dot(position));
+		v[12] = -(xAxis.dot(position));
+		v[13] = -(yAxis.dot(position));
+		v[14] = -(zAxis.dot(position));
 
 		return *this;
+	}
+
+	Vector3 translation() {
+		return Vector3(v[12], v[13], v[14]);
 	}
 };
