@@ -138,22 +138,24 @@
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\1.lit.frag" />
-    <None Include="shaders\1.lit.vert" />
-    <None Include="shaders\3.1.materials.frag" />
-    <None Include="shaders\3.1.materials.vert" />
+    <None Include="shaders\1.fragment.frag" />
+    <None Include="shaders\1.vertex.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />
     <None Include="shaders\5.1.texture.vert" />
     <None Include="shaders\6.3.coordinate_systems.frag" />
     <None Include="shaders\6.3.coordinate_systems.vert" />
-    <None Include="shaders\fragment.frag" />
-    <None Include="shaders\1.light_box.frag" />
-    <None Include="shaders\1.light_box.vert" />
+    <None Include="shaders\7.light_box.frag" />
+    <None Include="shaders\7.light_box.vert" />
+    <None Include="shaders\7.lit.frag" />
+    <None Include="shaders\7.lit.vert" />
+    <None Include="shaders\8.materials.frag" />
+    <None Include="shaders\8.materials.vert" />
+    <None Include="shaders\9.diffuse_and_specular_map.frag" />
+    <None Include="shaders\9.diffuse_and_specular_map.vert" />
     <None Include="shaders\line.frag" />
     <None Include="shaders\line.vert" />
-    <None Include="shaders\vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
