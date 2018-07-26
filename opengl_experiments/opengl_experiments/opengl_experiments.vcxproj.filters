@@ -121,5 +121,17 @@
     <None Include="shaders\9.diffuse_and_specular_map.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="shaders\10.attenuation.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\10.attenuation.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\10.spotlight.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\10.spotlight.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

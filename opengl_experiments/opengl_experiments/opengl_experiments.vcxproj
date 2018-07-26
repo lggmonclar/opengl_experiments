@@ -140,6 +140,10 @@
   <ItemGroup>
     <None Include="shaders\1.fragment.frag" />
     <None Include="shaders\1.vertex.vert" />
+    <None Include="shaders\10.attenuation.frag" />
+    <None Include="shaders\10.attenuation.vert" />
+    <None Include="shaders\10.spotlight.frag" />
+    <None Include="shaders\10.spotlight.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />

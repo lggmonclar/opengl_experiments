@@ -69,7 +69,7 @@ int main() {
 
 	// build and compile our shader program
 	// ------------------------------------
-	Shader boxShader("shaders/9.diffuse_and_specular_map.vert", "shaders/9.diffuse_and_specular_map.frag");
+	Shader spotlightShader("shaders/10.spotlight.vert", "shaders/10.spotlight.frag");
 	Shader lightBoxShader("shaders/7.light_box.vert", "shaders/7.light_box.frag");
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
@@ -166,13 +166,26 @@ int main() {
 
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
-	boxShader.use();
-	boxShader.setInt("material.diffuse", 0);
-	boxShader.setInt("material.specular", 1);
-	boxShader.setFloat("material.shininess", 32.0f);
-	boxShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-	boxShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
-	boxShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+	spotlightShader.use();
+	spotlightShader.setInt("material.diffuse", 0);
+	spotlightShader.setInt("material.specular", 1);
+	spotlightShader.setFloat("material.shininess", 32.0f);
+
+	spotlightShader.setVec3("light.position", camera.position);
+	spotlightShader.setVec3("light.direction", camera.front);
+	spotlightShader.setFloat("light.cutOff", std::cos(deg2rad(12.5f)));
+	spotlightShader.setFloat("light.outerCutOff", std::cos(deg2rad(17.5f)));
+	spotlightShader.setVec3("viewPos", camera.position);
+
+	// light properties
+	spotlightShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
+	// we configure the diffuse intensity slightly higher; the right lighting conditions differ with each lighting method and environment.
+	// each environment and lighting type requires some tweaking to get the best out of your environment.
+	spotlightShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
+	spotlightShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+	spotlightShader.setFloat("light.constant", 1.0f);
+	spotlightShader.setFloat("light.linear", 0.09f);
+	spotlightShader.setFloat("light.quadratic", 0.032f);
 
 	// render loop
 	// -----------
@@ -212,17 +225,18 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// render boxes
-		boxShader.use();
-		boxShader.setVec3("viewPos", camera.position);
-		boxShader.setVec3("light.position", lightM.translation());
+		spotlightShader.use();
+		spotlightShader.setVec3("viewPos", camera.position);
+		spotlightShader.setVec3("light.position", camera.position);
+		spotlightShader.setVec3("light.direction", camera.front);
 		glBindVertexArray(cubesVAO);
 		for (unsigned int i = 0; i < 10; i++) {
 			Matrix4 M;
 			M.translate(cubePositions[i]);
 			// calculate the mvp matrix for each object and pass it to shader before drawing
-			boxShader.setMat4("model", M);
-			boxShader.setMat4("view", V);
-			boxShader.setMat4("projection", P);
+			spotlightShader.setMat4("model", M);
+			spotlightShader.setMat4("view", V);
+			spotlightShader.setMat4("projection", P);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
