@@ -133,5 +133,11 @@
     <None Include="shaders\10.spotlight.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="shaders\11.multiple_lights.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\11.multiple_lights.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

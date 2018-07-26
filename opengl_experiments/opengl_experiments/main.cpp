@@ -69,7 +69,7 @@ int main() {
 
 	// build and compile our shader program
 	// ------------------------------------
-	Shader spotlightShader("shaders/10.spotlight.vert", "shaders/10.spotlight.frag");
+	Shader multipleLightsShader("shaders/11.multiple_lights.vert", "shaders/11.multiple_lights.frag");
 	Shader lightBoxShader("shaders/7.light_box.vert", "shaders/7.light_box.frag");
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
@@ -131,7 +131,13 @@ int main() {
 		Vector3(1.5f,  0.2f, -1.5f),
 		Vector3(-1.3f,  1.0f, -1.5f)
 	};
-	Vector3 lightboxPosition = Vector3(0.0, 0.0, 1.5);
+	// positions of the point lights
+	Vector3 pointLightPositions[] = {
+		Vector3(0.7f,  0.2f,  2.0f),
+		Vector3(2.3f, -3.3f, -4.0f),
+		Vector3(-4.0f,  2.0f, -12.0f),
+		Vector3(0.0f,  0.0f, -3.0f)
+	};
 	unsigned int lightVAO, cubesVAO, VBO;
 
 	glGenVertexArrays(1, &cubesVAO);
@@ -166,26 +172,10 @@ int main() {
 
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
-	spotlightShader.use();
-	spotlightShader.setInt("material.diffuse", 0);
-	spotlightShader.setInt("material.specular", 1);
-	spotlightShader.setFloat("material.shininess", 32.0f);
-
-	spotlightShader.setVec3("light.position", camera.position);
-	spotlightShader.setVec3("light.direction", camera.front);
-	spotlightShader.setFloat("light.cutOff", std::cos(deg2rad(12.5f)));
-	spotlightShader.setFloat("light.outerCutOff", std::cos(deg2rad(17.5f)));
-	spotlightShader.setVec3("viewPos", camera.position);
-
-	// light properties
-	spotlightShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
-	// we configure the diffuse intensity slightly higher; the right lighting conditions differ with each lighting method and environment.
-	// each environment and lighting type requires some tweaking to get the best out of your environment.
-	spotlightShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
-	spotlightShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-	spotlightShader.setFloat("light.constant", 1.0f);
-	spotlightShader.setFloat("light.linear", 0.09f);
-	spotlightShader.setFloat("light.quadratic", 0.032f);
+	multipleLightsShader.use();
+	multipleLightsShader.setInt("material.diffuse", 0);
+	multipleLightsShader.setInt("material.specular", 1);
+	multipleLightsShader.setFloat("material.shininess", 32.0f);
 
 	// render loop
 	// -----------
@@ -217,26 +207,78 @@ int main() {
 
 		glBindVertexArray(lightVAO);
 		lightBoxShader.use();
-		Matrix4 lightM;
-		lightM.scale(0.2f).translate(lightboxPosition).rotateY((float)glfwGetTime());
-		Matrix4 mvp = lightM * V * P;
-		lightBoxShader.setMat4("mvp", mvp);
-
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		for (unsigned int i = 0; i < 4; i++) {
+			Matrix4 lightM;
+			lightM.scale(0.2f).translate(pointLightPositions[i]);
+			Matrix4 mvp = lightM * V * P;
+			lightBoxShader.setMat4("mvp", mvp);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 
 		// render boxes
-		spotlightShader.use();
-		spotlightShader.setVec3("viewPos", camera.position);
-		spotlightShader.setVec3("light.position", camera.position);
-		spotlightShader.setVec3("light.direction", camera.front);
+		multipleLightsShader.use();
+		/*
+		Here we set all the uniforms for the 5/6 types of lights we have. We have to set them manually and index
+		the proper PointLight struct in the array to set each uniform variable. This can be done more code-friendly
+		by defining light types as classes and set their values in there, or by using a more efficient uniform approach
+		by using 'Uniform buffer objects', but that is something we'll discuss in the 'Advanced GLSL' tutorial.
+		*/
+		// directional light
+		multipleLightsShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+		multipleLightsShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+		multipleLightsShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+		multipleLightsShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+		// point light 1
+		multipleLightsShader.setVec3("pointLights[0].position", pointLightPositions[0]);
+		multipleLightsShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+		multipleLightsShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+		multipleLightsShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+		multipleLightsShader.setFloat("pointLights[0].constant", 1.0f);
+		multipleLightsShader.setFloat("pointLights[0].linear", 0.09);
+		multipleLightsShader.setFloat("pointLights[0].quadratic", 0.032);
+		// point light 2
+		multipleLightsShader.setVec3("pointLights[1].position", pointLightPositions[1]);
+		multipleLightsShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+		multipleLightsShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+		multipleLightsShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+		multipleLightsShader.setFloat("pointLights[1].constant", 1.0f);
+		multipleLightsShader.setFloat("pointLights[1].linear", 0.09);
+		multipleLightsShader.setFloat("pointLights[1].quadratic", 0.032);
+		// point light 3
+		multipleLightsShader.setVec3("pointLights[2].position", pointLightPositions[2]);
+		multipleLightsShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+		multipleLightsShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+		multipleLightsShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+		multipleLightsShader.setFloat("pointLights[2].constant", 1.0f);
+		multipleLightsShader.setFloat("pointLights[2].linear", 0.09);
+		multipleLightsShader.setFloat("pointLights[2].quadratic", 0.032);
+		// point light 4
+		multipleLightsShader.setVec3("pointLights[3].position", pointLightPositions[3]);
+		multipleLightsShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+		multipleLightsShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+		multipleLightsShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+		multipleLightsShader.setFloat("pointLights[3].constant", 1.0f);
+		multipleLightsShader.setFloat("pointLights[3].linear", 0.09);
+		multipleLightsShader.setFloat("pointLights[3].quadratic", 0.032);
+		// spotLight
+		multipleLightsShader.setVec3("spotLight.position", camera.position);
+		multipleLightsShader.setVec3("spotLight.direction", camera.front);
+		multipleLightsShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+		multipleLightsShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+		multipleLightsShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+		multipleLightsShader.setFloat("spotLight.constant", 1.0f);
+		multipleLightsShader.setFloat("spotLight.linear", 0.09);
+		multipleLightsShader.setFloat("spotLight.quadratic", 0.032);
+		multipleLightsShader.setFloat("spotLight.cutOff", std::cos(deg2rad(12.5f)));
+		multipleLightsShader.setFloat("spotLight.outerCutOff", std::cos(deg2rad(15.0f)));
 		glBindVertexArray(cubesVAO);
 		for (unsigned int i = 0; i < 10; i++) {
 			Matrix4 M;
 			M.translate(cubePositions[i]);
 			// calculate the mvp matrix for each object and pass it to shader before drawing
-			spotlightShader.setMat4("model", M);
-			spotlightShader.setMat4("view", V);
-			spotlightShader.setMat4("projection", P);
+			multipleLightsShader.setMat4("model", M);
+			multipleLightsShader.setMat4("view", V);
+			multipleLightsShader.setMat4("projection", P);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
