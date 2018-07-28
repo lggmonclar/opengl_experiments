@@ -81,7 +81,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,6 +134,8 @@
     <ClInclude Include="math\vector3.h" />
     <ClInclude Include="math\vector4.h" />
     <ClInclude Include="math_helpers.h" />
+    <ClInclude Include="mesh.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
@@ -146,6 +148,8 @@
     <None Include="shaders\10.spotlight.vert" />
     <None Include="shaders\11.multiple_lights.frag" />
     <None Include="shaders\11.multiple_lights.vert" />
+    <None Include="shaders\12.simple_diffuse.frag" />
+    <None Include="shaders\12.simple_diffuse.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />

@@ -65,6 +65,12 @@
     <ClInclude Include="line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\1.fragment.frag">
@@ -137,6 +143,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\11.multiple_lights.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\12.simple_diffuse.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\12.simple_diffuse.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
