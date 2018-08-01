@@ -1,36 +1,39 @@
+#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stb_image.h>
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
 
-#include "stb_image.h"
-
-#include "shader.h"
 #include "camera.h"
-#include "model.h"
 
-#include "math/math_helpers.h"
-#include "math/matrix4.h"
-#include "math/vector2.h"
-#include "math/vector3.h"
-#include "math/vector4.h"
-#include "line.h"
+#include <math/math.h>
+#include <debug/line.h>
 
-#include <iostream>
+#include "scene.h"
+#include "cubemap_reflections.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+
+void famebufferSizeCallback(GLFWwindow* window, int width, int height);
+void cameraMovementMouseCallback(GLFWwindow* window, double xpos, double ypos);
+void mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 void inputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void toggleWireframeMode();
+void toggleCursorActive(GLFWwindow* window);
+void renderSceneMenu();
 
-const unsigned int WINDOW_WIDTH = 800;
-const unsigned int WINDOW_HEIGHT = 600;
+const unsigned int WINDOW_WIDTH = 1366;
+const unsigned int WINDOW_HEIGHT = 768;
 
+Scene *currentScene;
 Camera camera(Vector3(0.0f, 0.0f, 3.0f));
 float lastX = WINDOW_WIDTH / 2.0f;
 float lastY = WINDOW_HEIGHT / 2.0f;
 bool firstMouse = true;
 int keyStates[512];
 bool wireframeMode = false;
+bool isCursorActive = false;
 
 // timing
 float deltaTime = 0.0f;	// time between current frame and last frame
@@ -49,9 +52,9 @@ GLFWwindow* initWindow() {
 		exit(-1);
 	}
 	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
-	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetFramebufferSizeCallback(window, famebufferSizeCallback);
+	glfwSetCursorPosCallback(window, cameraMovementMouseCallback);
+	glfwSetScrollCallback(window, mouseScrollCallback);
 
 	// tell GLFW to capture our mouse
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -67,84 +70,26 @@ GLFWwindow* initWindow() {
 	return window;
 }
 
+void setupGUI(GLFWwindow* window) {
+	// Setup Dear ImGui binding
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330 core");
+
+	// Setup style
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsClassic();
+}
+
 int main() {
 	GLFWwindow* window = initWindow();
+	setupGUI(window);
 	glfwSetKeyCallback(window, inputCallback);
-
-	Shader modelShader("shaders/9.diffuse_and_specular_map.vert", "shaders/9.diffuse_and_specular_map.frag");
-	Shader lightBoxShader("shaders/7.light_box.vert", "shaders/7.light_box.frag");
-	Model ourModel("models/nanosuit.obj");
-
-	float vertices[] = {
-		// positions          // normals           // texture coords
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
-	};
-
-	Vector3 pointLightPosition = Vector3(1.2f, 1.2f, 0.0f);
-
-	unsigned int lightVAO, VBO;
-
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	// normal attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	// texture attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glEnableVertexAttribArray(2);
-
-	glGenVertexArrays(1, &lightVAO);
-	glBindVertexArray(lightVAO);
-	// we only need to bind to the VBO, the container's VBO's data already contains the correct data.
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	// set the vertex attributes (only position data for our lamp)
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	CubemapReflectionsScene defaultScene;
+	currentScene = &defaultScene;
 
 	// render loop
 	// -----------
@@ -167,27 +112,8 @@ int main() {
 		Matrix4 V = camera.getViewMatrix();
 		Matrix4 P = Matrix4::perspectiveProjection(deg2rad(camera.zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
-		lightBoxShader.use();
-		Matrix4 lightM;
-		lightM.scale(0.2f,0.2f,0.2f).translate(pointLightPosition).rotateY(glfwGetTime());
-		glBindVertexArray(lightVAO);
-		lightBoxShader.setMat4("mvp", lightM * V * P);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-		Matrix4 M;
-		M.scale(0.2f, 0.2f, 0.2f).translate(0.0f, -1.75f, 0.0f);
-		// render boxes
-		modelShader.use();
-		modelShader.setVec3("light.position", lightM.translation());
-		modelShader.setVec3("light.ambient", 0.05f, 0.05f, 0.05f);
-		modelShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
-		modelShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-		modelShader.setVec3("viewPos", camera.position);
-		
-		modelShader.setMat4("model", M);
-		modelShader.setMat4("mvp", (M * V * P));
-		ourModel.Draw(modelShader);
+		currentScene->Draw(V, P);
+		renderSceneMenu();
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
@@ -201,6 +127,34 @@ int main() {
 	return 0;
 }
 
+void renderSceneMenu() {
+	static bool showSceneOptions = true;
+	//UI
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
+	//ImGui::ShowDemoWindow(NULL);
+	ImGui::Begin("Menu", NULL, 0);
+	ImGui::Checkbox("Show scene options", &showSceneOptions);
+	if (ImGui::CollapsingHeader("Cubemapping Reflections")) {
+		ImGui::TextWrapped("Shows how a cubemap of a skybox can be used as a sample target that gives the illusion of reflection/refraction in a model");
+		if (ImGui::Button("Load Scene")) {
+
+		}
+	}
+	ImGui::End();
+
+	if (showSceneOptions) {
+		ImGui::Begin("Scene Options", &showSceneOptions, 0);
+		currentScene->DrawGUIOptions();
+		ImGui::End();
+	}
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
 void inputCallback(GLFWwindow* window, int key, int scancode, int state, int mods) {
 	keyStates[key] = state;
 
@@ -209,6 +163,20 @@ void inputCallback(GLFWwindow* window, int key, int scancode, int state, int mod
 
 	if (key == GLFW_KEY_M && state == GLFW_RELEASE)
 		toggleWireframeMode();
+
+	if (key == GLFW_KEY_LEFT_CONTROL && state == GLFW_PRESS)
+		toggleCursorActive(window);
+}
+
+void toggleCursorActive(GLFWwindow* window) {
+	isCursorActive = !isCursorActive;
+	if (isCursorActive) {
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+	else {
+		firstMouse = true;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
 }
 
 void toggleWireframeMode() {
@@ -221,7 +189,7 @@ void toggleWireframeMode() {
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+void famebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
@@ -230,7 +198,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
-void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+void cameraMovementMouseCallback(GLFWwindow* window, double xpos, double ypos) {
+	if (isCursorActive)
+		return;
+
 	if (firstMouse) {
 		lastX = xpos;
 		lastY = ypos;
@@ -248,6 +219,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+void mouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
 	camera.processMouseScroll(yoffset);
 }

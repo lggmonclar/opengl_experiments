@@ -121,23 +121,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cubemap_reflections.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
-    <ClInclude Include="line.h" />
-    <ClInclude Include="math\matrix3.h" />
-    <ClInclude Include="math\matrix4.h" />
-    <ClInclude Include="math\vector2.h" />
-    <ClInclude Include="math\vector3.h" />
-    <ClInclude Include="math\vector4.h" />
-    <ClInclude Include="math_helpers.h" />
+    <ClInclude Include="cube.h" />
+    <ClInclude Include="cubemap_reflections.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="skybox.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\1.fragment.frag" />
@@ -150,6 +153,10 @@
     <None Include="shaders\11.multiple_lights.vert" />
     <None Include="shaders\12.simple_diffuse.frag" />
     <None Include="shaders\12.simple_diffuse.vert" />
+    <None Include="shaders\13.reflections.frag" />
+    <None Include="shaders\13.reflections.vert" />
+    <None Include="shaders\13.skybox.frag" />
+    <None Include="shaders\13.skybox.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />

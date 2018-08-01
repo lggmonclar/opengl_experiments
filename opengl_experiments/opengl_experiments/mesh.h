@@ -12,7 +12,9 @@
 using namespace std;
 
 struct Vertex {
-	// position
+	Vertex() = default;
+	Vertex(Vector3 position, Vector3 normal = Vector3(), Vector2 texCoords = Vector2(), Vector3 tangent = Vector3(), Vector3 bitangent = Vector3()) 
+		: Position(position), Normal(normal), TexCoords(texCoords), Tangent(tangent), Bitangent(bitangent) {}
 	Vector3 Position;
 	// normal
 	Vector3 Normal;
@@ -32,20 +34,15 @@ struct Texture {
 
 class Mesh {
 public:
-	/*  Mesh Data  */
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 	vector<Texture> textures;
 	unsigned int VAO;
 
-	/*  Functions  */
-	// constructor
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures) : vertices(vertices), indices(indices), textures(textures) {
-		// now that we have all the required data, set the vertex buffers and its attribute pointers.
 		setupMesh();
 	}
 
-	// render the mesh
 	void Draw(Shader shader) {
 		// bind appropriate textures
 		unsigned int diffuseNr = 1;
@@ -82,16 +79,13 @@ public:
 	}
 
 private:
-	/*  Render data  */
 	unsigned int VBO, EBO;
 
-	/*  Functions    */
 	// initializes all the buffer objects/arrays
 	void setupMesh() {
 		// create buffers/arrays
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
 
 		glBindVertexArray(VAO);
 		// load data into vertex buffers
@@ -101,8 +95,11 @@ private:
 		// again translates to 3/2 floats which translates to a byte array.
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+		if (indices.size() > 0) {
+			glGenBuffers(1, &EBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+		}
 
 		// set the vertex attribute pointers
 		// vertex Positions
