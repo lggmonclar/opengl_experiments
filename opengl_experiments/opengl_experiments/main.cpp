@@ -22,11 +22,12 @@ void inputCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 void toggleWireframeMode();
 void toggleCursorActive(GLFWwindow* window);
 void renderSceneMenu();
+template <class T> void loadScene();
 
 const unsigned int WINDOW_WIDTH = 1366;
 const unsigned int WINDOW_HEIGHT = 768;
 
-Scene *currentScene;
+Scene *currentScene = NULL;
 Camera camera(Vector3(0.0f, 0.0f, 3.0f));
 float lastX = WINDOW_WIDTH / 2.0f;
 float lastY = WINDOW_HEIGHT / 2.0f;
@@ -88,8 +89,7 @@ int main() {
 	GLFWwindow* window = initWindow();
 	setupGUI(window);
 	glfwSetKeyCallback(window, inputCallback);
-	CubemapReflectionsScene defaultScene;
-	currentScene = &defaultScene;
+	loadScene<CubemapReflectionsScene>();
 
 	// render loop
 	// -----------
@@ -112,7 +112,7 @@ int main() {
 		Matrix4 V = camera.getViewMatrix();
 		Matrix4 P = Matrix4::perspectiveProjection(deg2rad(camera.zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
-		currentScene->Draw(V, P);
+		currentScene->Draw(camera, P);
 		renderSceneMenu();
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -125,6 +125,13 @@ int main() {
 	// ------------------------------------------------------------------
 	glfwTerminate();
 	return 0;
+}
+
+template <class T> void loadScene() {
+	if (currentScene != NULL) {
+		delete currentScene;
+	}
+	currentScene = new T();
 }
 
 void renderSceneMenu() {
@@ -140,7 +147,7 @@ void renderSceneMenu() {
 	if (ImGui::CollapsingHeader("Cubemapping Reflections")) {
 		ImGui::TextWrapped("Shows how a cubemap of a skybox can be used as a sample target that gives the illusion of reflection/refraction in a model");
 		if (ImGui::Button("Load Scene")) {
-
+			loadScene<CubemapReflectionsScene>();
 		}
 	}
 	ImGui::End();

@@ -5,14 +5,49 @@
 #include "model.h"
 #include "cube.h"
 
+struct BoxData {
+	BoxData() = default;
+	BoxData(Vector3 pos, Vector3 col) : position(pos), color(col){}
+	Vector3 position;
+	Vector3 color;
+};
+
 class CubemapReflectionsScene : public Scene {
 public:
 	CubemapReflectionsScene();
-	void Draw(const Matrix4& V, const Matrix4& P);
+	void Draw(Camera& camera, const Matrix4& P);
 	void DrawGUIOptions();
+	~CubemapReflectionsScene();
 private:
+	bool useDynamicCubemap = false;
+	bool rotateCubes = true;
+	unsigned int reflectionFBOs[6];
+	unsigned int dynamicCubemapID;
+
 	Shader modelShader{ "shaders/13.reflections.vert", "shaders/13.reflections.frag" };
-	Shader lightBoxShader{ "shaders/7.light_box.vert", "shaders/7.light_box.frag" };
+	Shader boxShader{ "shaders/7.light_box.vert", "shaders/7.light_box.frag" };
+	BoxData boxData[5] = {
+		BoxData {
+			Vector3(1.2f, 1.2f, 0.0f),
+			Vector3(1.0f, 1.0f, 1.0f)
+		},
+		BoxData{
+			Vector3(0.8f, 0.8f, 1.0f),
+			Vector3(1.0f, 0.0f, 0.0f)
+		},
+		BoxData{
+			Vector3(0.2f, 0.2f, 2.0f),
+			Vector3(0.0f, 1.0f, 0.0f)
+		},
+		BoxData{
+			Vector3(-0.4f, -0.4f, 3.0f),
+			Vector3(0.0f, 0.0f, 1.0f)
+		},
+		BoxData{
+			Vector3(-1.0f, -1.0f, 4.0f),
+			Vector3(0.0f, 0.0f, 0.0f)
+		}
+	};
 	Skybox skybox{
 		"textures/skyboxes/1/right.jpg",
 		"textures/skyboxes/1/left.jpg",
@@ -20,7 +55,7 @@ private:
 		"textures/skyboxes/1/bottom.jpg",
 		"textures/skyboxes/1/front.jpg",
 		"textures/skyboxes/1/back.jpg" };
-	Model ourModel{ "models/nanosuit.obj" };
-	Vector3 pointLightPosition{ 1.2f, 1.2f, 0.0f };
+	Model sphereModel{ "models/sphere/sphere.obj" };
+	Vector3 modelPos{0.0f, 0.0f, 0.0f};
 	Cube cube;
 };

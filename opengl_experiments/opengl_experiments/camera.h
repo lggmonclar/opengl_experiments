@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glfw/glfw3.h>
 #include "math/vector3.h"
 #include "math/matrix4.h"
 #include "math/math_helpers.h"
@@ -23,9 +24,6 @@ public:
 	Vector3 up;
 	Vector3 right;
 	Vector3 worldUp;
-	// Euler Angles
-	float yaw;
-	float pitch;
 	// Camera options
 	float movementSpeed;
 	float mouseSensitivity;
@@ -98,7 +96,20 @@ public:
 			zoom = 45.0f;
 	}
 
+	void setYaw(float y) {
+		yaw = y;
+		updateCameraVectors();
+	}
+
+	void setPitch(float p) {
+		pitch = p;
+		updateCameraVectors();
+	}
+
 private:
+	// Euler Angles
+	float yaw;
+	float pitch;
 	// Calculates the front vector from the Camera's (updated) Euler Angles
 	void updateCameraVectors() {
 		// Calculate the new Front vector
