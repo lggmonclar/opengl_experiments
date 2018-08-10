@@ -54,6 +54,15 @@
     <ClCompile Include="cubemap_reflections.cpp">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="shadow_mapping.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="directional_light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -79,6 +88,15 @@
     </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow_mapping.h">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="directional_light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plane.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +188,24 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\13.reflections.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.shadow_depth_map.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.shadow_depth_map.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.shadow_mapped_phong.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.shadow_mapped_phong.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.debug_quad.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.debug_quad.frag">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

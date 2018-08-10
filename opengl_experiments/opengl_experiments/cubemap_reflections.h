@@ -5,13 +5,6 @@
 #include "model.h"
 #include "cube.h"
 
-struct BoxData {
-	BoxData() = default;
-	BoxData(Vector3 pos, Vector3 col) : position(pos), color(col){}
-	Vector3 position;
-	Vector3 color;
-};
-
 class CubemapReflectionsScene : public Scene {
 public:
 	CubemapReflectionsScene();
@@ -19,6 +12,12 @@ public:
 	void DrawGUIOptions();
 	~CubemapReflectionsScene();
 private:
+	struct BoxData {
+		BoxData() = default;
+		BoxData(Vector3 pos, Vector3 col) : position(pos), color(col) {}
+		Vector3 position;
+		Vector3 color;
+	};
 	bool useDynamicCubemap = false;
 	bool rotateCubes = true;
 	unsigned int reflectionFBOs[6];

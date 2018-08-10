@@ -12,7 +12,7 @@ CubemapReflectionsScene::CubemapReflectionsScene() {
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 	for (int i = 0; i < 6; ++i) {
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, 512, 512, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 
 
 		glBindFramebuffer(GL_FRAMEBUFFER, reflectionFBOs[i]);
@@ -20,7 +20,7 @@ CubemapReflectionsScene::CubemapReflectionsScene() {
 		unsigned int rbo;
 		glGenRenderbuffers(1, &rbo);
 		glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 512, 512);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1024, 1024);
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
 	}
@@ -32,7 +32,7 @@ CubemapReflectionsScene::CubemapReflectionsScene() {
 
 void CubemapReflectionsScene::Draw(Camera& camera, const Matrix4& P) {
 	if (useDynamicCubemap) {
-		glViewport(0, 0, 512, 512);
+		glViewport(0, 0, 1024, 1024);
 		Matrix4 perspective = Matrix4::perspectiveProjection(deg2rad(90.0f), 1.0f, 0.5f, 100.0f);
 		Vector3 directionVectors[6] = {
 			Vector3(1.0f, 0.0f, 0.0f),
@@ -70,7 +70,7 @@ void CubemapReflectionsScene::Draw(Camera& camera, const Matrix4& P) {
 
 			skybox.Draw(view, perspective);
 		}
-		glViewport(0, 0, 1366, 768);
+		glViewport(0, 0, viewportWidth, viewportHeight);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
@@ -116,5 +116,5 @@ void CubemapReflectionsScene::DrawGUIOptions() {
 }
 
 CubemapReflectionsScene::~CubemapReflectionsScene() {
-	glDeleteFramebuffers(1, reflectionFBOs);
+	glDeleteFramebuffers(6, reflectionFBOs);
 }

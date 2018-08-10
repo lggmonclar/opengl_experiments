@@ -224,24 +224,36 @@ public:
 		return translate(v.x, v.y, v.z);
 	}
 
-	Matrix4& projectOrtographically() {
+	static Matrix4 orthographicProjection(float left, float right, float bottom, float top, float nearPlane, float farPlane) {
+		float m00 = 2.0f / (right - left);
+		float m11 = 2.0f / (top - bottom);
+		float m22 = - 2.0f / (farPlane - nearPlane);
+		float m30 = - (right + left) / (right - left);
+		float m31 = - (top + bottom) / (top - bottom);
+		float m32 = - (farPlane + nearPlane) / (farPlane - nearPlane);
 
+		return Matrix4(
+			m00, 0.0f, 0.0f, 0.0f,
+			0.0f, m11, 0.0f, 0.0f,
+			0.0f, 0.0f, m22, 0.0f,
+			m30,  m31,	m32, 1.0f
+		);
 	}
 
 	static Matrix4 perspectiveProjection(float fieldOfView, float aspectRatio, float nearPlane, float farPlane) {
 		float tanHalfFov = tan(fieldOfView / 2.0f);
 
-		float v11 = 1.0f / (aspectRatio * tanHalfFov);
-		float v22 = 1.0f / tanHalfFov;
-		float v33 = -(farPlane + nearPlane) / (farPlane - nearPlane);
-		float v34 = -1.0f;
-		float v43 = -(2 * farPlane * nearPlane) / (farPlane - nearPlane);
+		float m00 = 1.0f / (aspectRatio * tanHalfFov);
+		float m11 = 1.0f / tanHalfFov;
+		float m22 = -(farPlane + nearPlane) / (farPlane - nearPlane);
+		float m23 = -1.0f;
+		float m32 = -(2 * farPlane * nearPlane) / (farPlane - nearPlane);
 
 		return Matrix4(
-			v11, 0.0f, 0.0f, 0.0f,
-			0.0f, v22, 0.0f, 0.0f,
-			0.0f, 0.0f, v33, v34,
-			0.0f, 0.0f, v43, 0.0f
+			m00, 0.0f, 0.0f, 0.0f,
+			0.0f, m11, 0.0f, 0.0f,
+			0.0f, 0.0f, m22, m23,
+			0.0f, 0.0f, m32, 0.0f
 		);
 	}
 

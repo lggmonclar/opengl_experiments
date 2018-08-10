@@ -13,6 +13,7 @@
 
 #include "scene.h"
 #include "cubemap_reflections.h"
+#include "shadow_mapping.h"
 
 
 void famebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -27,7 +28,7 @@ template <class T> void loadScene();
 const unsigned int WINDOW_WIDTH = 1366;
 const unsigned int WINDOW_HEIGHT = 768;
 
-Scene *currentScene = NULL;
+std::unique_ptr<Scene> currentScene = NULL;
 Camera camera(Vector3(0.0f, 0.0f, 3.0f));
 float lastX = WINDOW_WIDTH / 2.0f;
 float lastY = WINDOW_HEIGHT / 2.0f;
@@ -109,7 +110,6 @@ int main() {
 		glClearColor(0.2f, 0.6f, 0.7f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		Matrix4 V = camera.getViewMatrix();
 		Matrix4 P = Matrix4::perspectiveProjection(deg2rad(camera.zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
 		currentScene->Draw(camera, P);
@@ -128,10 +128,8 @@ int main() {
 }
 
 template <class T> void loadScene() {
-	if (currentScene != NULL) {
-		delete currentScene;
-	}
-	currentScene = new T();
+	currentScene.reset(new T());
+	currentScene->setViewport(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void renderSceneMenu() {
@@ -148,6 +146,12 @@ void renderSceneMenu() {
 		ImGui::TextWrapped("Shows how a cubemap of a skybox can be used as a sample target that gives the illusion of reflection/refraction in a model");
 		if (ImGui::Button("Load Scene")) {
 			loadScene<CubemapReflectionsScene>();
+		}
+	}
+	if (ImGui::CollapsingHeader("Shadow Mapping")) {
+		ImGui::TextWrapped("Shadow mapping");
+		if (ImGui::Button("Load Scene")) {
+			loadScene<ShadowMappingScene>();
 		}
 	}
 	ImGui::End();
@@ -200,6 +204,7 @@ void famebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
+	currentScene->setViewport(width, height);
 }
 
 

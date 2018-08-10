@@ -122,6 +122,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cubemap_reflections.cpp" />
+    <ClCompile Include="directional_light.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -130,16 +131,21 @@
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
+    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="shadow_mapping.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubemap_reflections.h" />
+    <ClInclude Include="directional_light.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="plane.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="shadow_mapping.h" />
     <ClInclude Include="skybox.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +163,12 @@
     <None Include="shaders\13.reflections.vert" />
     <None Include="shaders\13.skybox.frag" />
     <None Include="shaders\13.skybox.vert" />
+    <None Include="shaders\14.debug_quad.frag" />
+    <None Include="shaders\14.debug_quad.vert" />
+    <None Include="shaders\14.shadow_depth_map.frag" />
+    <None Include="shaders\14.shadow_depth_map.vert" />
+    <None Include="shaders\14.shadow_mapped_phong.frag" />
+    <None Include="shaders\14.shadow_mapped_phong.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />
