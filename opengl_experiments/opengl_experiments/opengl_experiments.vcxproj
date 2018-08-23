@@ -131,8 +131,9 @@
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
+    <ClCompile Include="omnidirectional_shadow_mapping.cpp" />
     <ClCompile Include="scene.cpp" />
-    <ClCompile Include="shadow_mapping.cpp" />
+    <ClCompile Include="directional_shadow_mapping.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,33 +143,38 @@
     <ClInclude Include="directional_light.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="omnidirectional_shadow_mapping.h" />
     <ClInclude Include="plane.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="shadow_mapping.h" />
+    <ClInclude Include="directional_shadow_mapping.h" />
     <ClInclude Include="skybox.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\1.fragment.frag" />
-    <None Include="shaders\1.vertex.vert" />
+    <None Include="shaders\1.diffuse_color.frag" />
+    <None Include="shaders\1.diffuse_color.vert" />
     <None Include="shaders\10.attenuation.frag" />
     <None Include="shaders\10.attenuation.vert" />
     <None Include="shaders\10.spotlight.frag" />
     <None Include="shaders\10.spotlight.vert" />
     <None Include="shaders\11.multiple_lights.frag" />
     <None Include="shaders\11.multiple_lights.vert" />
-    <None Include="shaders\12.simple_diffuse.frag" />
-    <None Include="shaders\12.simple_diffuse.vert" />
+    <None Include="shaders\12.diffuse_texture.frag" />
+    <None Include="shaders\12.diffuse_texture.vert" />
     <None Include="shaders\13.reflections.frag" />
     <None Include="shaders\13.reflections.vert" />
     <None Include="shaders\13.skybox.frag" />
     <None Include="shaders\13.skybox.vert" />
     <None Include="shaders\14.debug_quad.frag" />
     <None Include="shaders\14.debug_quad.vert" />
-    <None Include="shaders\14.shadow_depth_map.frag" />
-    <None Include="shaders\14.shadow_depth_map.vert" />
+    <None Include="shaders\14.directional_shadow_depth_map.frag" />
+    <None Include="shaders\14.directional_shadow_depth_map.vert" />
     <None Include="shaders\14.shadow_mapped_phong.frag" />
     <None Include="shaders\14.shadow_mapped_phong.vert" />
+    <None Include="shaders\15.omni_shadow_mapped_phong.frag" />
+    <None Include="shaders\15.omni_shadow_mapped_phong.vert" />
+    <None Include="shaders\15.point_shadow_depth_map.frag" />
+    <None Include="shaders\15.point_shadow_depth_map.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />

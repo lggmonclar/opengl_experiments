@@ -54,14 +54,17 @@
     <ClCompile Include="cubemap_reflections.cpp">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="shadow_mapping.cpp">
-      <Filter>Source Files\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="scene.cpp">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
     <ClCompile Include="directional_light.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="directional_shadow_mapping.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="omnidirectional_shadow_mapping.cpp">
+      <Filter>Source Files\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,23 +92,20 @@
     <ClInclude Include="scene.h">
       <Filter>Header Files\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="shadow_mapping.h">
-      <Filter>Header Files\scenes</Filter>
-    </ClInclude>
     <ClInclude Include="directional_light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="plane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="directional_shadow_mapping.h">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="omnidirectional_shadow_mapping.h">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\1.fragment.frag">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="shaders\1.vertex.vert">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
     <None Include="shaders\4.2.texture.frag">
       <Filter>Resource Files\shaders</Filter>
     </None>
@@ -172,12 +172,6 @@
     <None Include="shaders\11.multiple_lights.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
-    <None Include="shaders\12.simple_diffuse.frag">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="shaders\12.simple_diffuse.vert">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
     <None Include="shaders\13.skybox.frag">
       <Filter>Resource Files\shaders</Filter>
     </None>
@@ -190,12 +184,6 @@
     <None Include="shaders\13.reflections.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
-    <None Include="shaders\14.shadow_depth_map.frag">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="shaders\14.shadow_depth_map.vert">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
     <None Include="shaders\14.shadow_mapped_phong.frag">
       <Filter>Resource Files\shaders</Filter>
     </None>
@@ -206,6 +194,36 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\14.debug_quad.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\1.diffuse_color.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\1.diffuse_color.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\12.diffuse_texture.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\12.diffuse_texture.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.directional_shadow_depth_map.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\14.directional_shadow_depth_map.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\15.point_shadow_depth_map.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\15.point_shadow_depth_map.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\15.omni_shadow_mapped_phong.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\15.omni_shadow_mapped_phong.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

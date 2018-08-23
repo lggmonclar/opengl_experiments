@@ -13,7 +13,8 @@
 
 #include "scene.h"
 #include "cubemap_reflections.h"
-#include "shadow_mapping.h"
+#include "directional_shadow_mapping.h"
+#include "omnidirectional_shadow_mapping.h"
 
 
 void famebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -148,10 +149,16 @@ void renderSceneMenu() {
 			loadScene<CubemapReflectionsScene>();
 		}
 	}
-	if (ImGui::CollapsingHeader("Shadow Mapping")) {
-		ImGui::TextWrapped("Shadow mapping");
+	if (ImGui::CollapsingHeader("Directional Shadow Mapping")) {
+		ImGui::TextWrapped("Shows how shadows can be simulated for directional lights by rendering its viewpoint to a depth-only framebuffer, which is then used to compare fragments and determine if they should be shadowed.");
 		if (ImGui::Button("Load Scene")) {
-			loadScene<ShadowMappingScene>();
+			loadScene<DirectionalShadowMappingScene>();
+		}
+	}
+	if (ImGui::CollapsingHeader("Omnidirectional Shadow Mapping")) {
+		ImGui::TextWrapped("");
+		if (ImGui::Button("Load Scene")) {
+			loadScene<OmnidirectionalShadowMappingScene>();
 		}
 	}
 	ImGui::End();
