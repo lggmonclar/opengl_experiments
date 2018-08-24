@@ -15,6 +15,7 @@
 #include "cubemap_reflections.h"
 #include "directional_shadow_mapping.h"
 #include "omnidirectional_shadow_mapping.h"
+#include "normal_mapping.h"
 
 
 void famebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -159,6 +160,12 @@ void renderSceneMenu() {
 		ImGui::TextWrapped("");
 		if (ImGui::Button("Load Scene")) {
 			loadScene<OmnidirectionalShadowMappingScene>();
+		}
+	}
+	if (ImGui::CollapsingHeader("Normal Mapping")) {
+		ImGui::TextWrapped("");
+		if (ImGui::Button("Load Scene")) {
+			loadScene<NormalMappingScene>();
 		}
 	}
 	ImGui::End();

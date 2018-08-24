@@ -130,11 +130,12 @@
     <ClCompile Include="imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="model.cpp" />
+    <ClCompile Include="normal_mapping.cpp" />
     <ClCompile Include="omnidirectional_shadow_mapping.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="directional_shadow_mapping.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
@@ -143,12 +144,14 @@
     <ClInclude Include="directional_light.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="normal_mapping.h" />
     <ClInclude Include="omnidirectional_shadow_mapping.h" />
     <ClInclude Include="plane.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="directional_shadow_mapping.h" />
     <ClInclude Include="skybox.h" />
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\1.diffuse_color.frag" />
@@ -175,6 +178,8 @@
     <None Include="shaders\15.omni_shadow_mapped_phong.vert" />
     <None Include="shaders\15.point_shadow_depth_map.frag" />
     <None Include="shaders\15.point_shadow_depth_map.vert" />
+    <None Include="shaders\16.normal_map.frag" />
+    <None Include="shaders\16.normal_map.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />

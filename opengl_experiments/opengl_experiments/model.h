@@ -18,8 +18,6 @@
 #include <vector>
 using namespace std;
 
-unsigned int TextureFromFile(const char *path, const string &directory, bool gamma = false);
-
 class Model {
 public:
 	/*  Model Data */
@@ -173,10 +171,8 @@ private:
 				}
 			}
 			if (!skip) {  // if texture hasn't been loaded already, load it
-				Texture texture;
-				texture.id = TextureFromFile(str.C_Str(), this->directory);
+				Texture texture(str.C_Str(), this->directory);
 				texture.type = typeName;
-				texture.path = str.C_Str();
 				textures.push_back(texture);
 				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
 			}
@@ -184,6 +180,3 @@ private:
 		return textures;
 	}
 };
-
-
-unsigned int TextureFromFile(const char *path, const string &directory, bool gamma);

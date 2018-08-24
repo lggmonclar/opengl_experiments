@@ -48,9 +48,6 @@
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cubemap_reflections.cpp">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
@@ -65,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="omnidirectional_shadow_mapping.cpp">
       <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="normal_mapping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +106,12 @@
     </ClInclude>
     <ClInclude Include="omnidirectional_shadow_mapping.h">
       <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="normal_mapping.h">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +233,12 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\15.omni_shadow_mapped_phong.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\16.normal_map.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\16.normal_map.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>

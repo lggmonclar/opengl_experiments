@@ -3,6 +3,7 @@
 #include <glad/glad.h> // holds all OpenGL type declarations
 
 #include "shader.h"
+#include "texture.h"
 
 #include <string>
 #include <fstream>
@@ -24,12 +25,6 @@ struct Vertex {
 	Vector3 Tangent;
 	// bitangent
 	Vector3 Bitangent;
-};
-
-struct Texture {
-	unsigned int id;
-	string type;
-	string path;
 };
 
 class Mesh {
