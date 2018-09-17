@@ -16,6 +16,7 @@
 #include "directional_shadow_mapping.h"
 #include "omnidirectional_shadow_mapping.h"
 #include "normal_mapping.h"
+#include "parallax_mapping.h"
 
 
 void famebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -131,6 +132,7 @@ int main() {
 
 template <class T> void loadScene() {
 	currentScene.reset(new T());
+	camera = Vector3(0.0f, 0.0f, 3.0f);
 	currentScene->setViewport(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
@@ -141,32 +143,50 @@ void renderSceneMenu() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
+	int loadButtonId = 0;
+
 	//ImGui::ShowDemoWindow(NULL);
 	ImGui::Begin("Menu", NULL, 0);
 	ImGui::Checkbox("Show scene options", &showSceneOptions);
 	if (ImGui::CollapsingHeader("Cubemapping Reflections")) {
-		ImGui::TextWrapped("Shows how a cubemap of a skybox can be used as a sample target that gives the illusion of reflection/refraction in a model");
+		ImGui::TextWrapped("Shows how a cubemap of a skybox can be used as a sample target that gives the illusion of reflection/refraction in a model.");
+		ImGui::PushID(loadButtonId++);
 		if (ImGui::Button("Load Scene")) {
 			loadScene<CubemapReflectionsScene>();
 		}
+		ImGui::PopID();
 	}
 	if (ImGui::CollapsingHeader("Directional Shadow Mapping")) {
 		ImGui::TextWrapped("Shows how shadows can be simulated for directional lights by rendering its viewpoint to a depth-only framebuffer, which is then used to compare fragments and determine if they should be shadowed.");
+		ImGui::PushID(loadButtonId++);
 		if (ImGui::Button("Load Scene")) {
 			loadScene<DirectionalShadowMappingScene>();
 		}
+		ImGui::PopID();
 	}
 	if (ImGui::CollapsingHeader("Omnidirectional Shadow Mapping")) {
-		ImGui::TextWrapped("");
+		ImGui::TextWrapped("To render shadows in all directions surrounding a light source, a cube map is dynamically constructed using six viewports based on the light's position. The depth cube map is then sampled to compare fragments that should be in shadow, similar to the directional shadowing technique.");
+		ImGui::PushID(loadButtonId++);
 		if (ImGui::Button("Load Scene")) {
 			loadScene<OmnidirectionalShadowMappingScene>();
 		}
+		ImGui::PopID();
 	}
 	if (ImGui::CollapsingHeader("Normal Mapping")) {
-		ImGui::TextWrapped("");
+		ImGui::TextWrapped("Normal mapping uses a texture (called \"normal map\") which contains the normal information for the object's rendered fragments. This allows for an object with few vertices to have much more detail for its lighting calculations.");
+		ImGui::PushID(loadButtonId++);
 		if (ImGui::Button("Load Scene")) {
 			loadScene<NormalMappingScene>();
 		}
+		ImGui::PopID();
+	}
+	if (ImGui::CollapsingHeader("Parallax Mapping")) {
+		ImGui::TextWrapped("Parallax mapping builds upon the idea of normal maps and uses \"displacement maps\", which provide details of how a fragment's depth should be perceived. The information is used in the fragment shader to create the illusion of depth.");
+		ImGui::PushID(loadButtonId++);
+		if (ImGui::Button("Load Scene")) {
+			loadScene<ParallaxMappingScene>();
+		}
+		ImGui::PopID();
 	}
 	ImGui::End();
 

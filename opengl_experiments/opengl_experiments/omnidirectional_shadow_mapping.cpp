@@ -129,10 +129,9 @@ void OmnidirectionalShadowMappingScene::DrawObjects(const Shader &shader, const 
 
 void OmnidirectionalShadowMappingScene::DrawGUIOptions() {
 	ImGui::Text("Current map size : %d", 2 << DEPTH_MAP_EXPONENT);
-	ImGui::SliderInt("Depth Exponent", &DEPTH_MAP_EXPONENT, 8, 12);
+	ImGui::SliderInt("Depth Exponent", &DEPTH_MAP_EXPONENT, 8, 11);
 	ImGui::Checkbox("Enable soft shadows", &enablePCF);
 	ImGui::Checkbox("Move objects", &moveObjects);
-	ImGui::Checkbox("Show depth map debug quad", &showDepthMapDebug);
 }
 
 void OmnidirectionalShadowMappingScene::GenerateDepthMap(bool firstPass) {
