@@ -4,7 +4,7 @@
 
 class NormalMappingScene : public Scene {
 public:
-	NormalMappingScene() = default;
+	NormalMappingScene(const unsigned int screenWidth, const unsigned int screenHeight) : Scene(screenWidth, screenHeight) {};
 	void Draw(Camera& camera, const Matrix4& P);
 	void DrawGUIOptions();
 private:

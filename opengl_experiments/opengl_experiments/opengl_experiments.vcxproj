@@ -121,7 +121,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bloom.cpp" />
     <ClCompile Include="cubemap_reflections.cpp" />
+    <ClCompile Include="deferred_rendering.cpp" />
     <ClCompile Include="directional_light.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -139,9 +141,11 @@
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bloom.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubemap_reflections.h" />
+    <ClInclude Include="deferred_rendering.h" />
     <ClInclude Include="directional_light.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
@@ -184,6 +188,16 @@
     <None Include="shaders\16.normal_map.vert" />
     <None Include="shaders\17.parallax_map.frag" />
     <None Include="shaders\17.parallax_map.vert" />
+    <None Include="shaders\18.bloom.frag" />
+    <None Include="shaders\18.bloom.vert" />
+    <None Include="shaders\18.bloom_final.frag" />
+    <None Include="shaders\18.bloom_final.vert" />
+    <None Include="shaders\18.blur.frag" />
+    <None Include="shaders\18.blur.vert" />
+    <None Include="shaders\19.deferred_lighting.frag" />
+    <None Include="shaders\19.deferred_lighting.vert" />
+    <None Include="shaders\19.g_buffer.frag" />
+    <None Include="shaders\19.g_buffer.vert" />
     <None Include="shaders\4.2.texture.frag" />
     <None Include="shaders\4.2.texture.vert" />
     <None Include="shaders\5.1.texture.frag" />

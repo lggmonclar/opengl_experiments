@@ -1,6 +1,6 @@
 #include "omnidirectional_shadow_mapping.h"
 
-OmnidirectionalShadowMappingScene::OmnidirectionalShadowMappingScene() {
+OmnidirectionalShadowMappingScene::OmnidirectionalShadowMappingScene(const unsigned int screenWidth, const unsigned int screenHeight) : Scene(screenWidth, screenHeight) {
 	GenerateDepthMap(true);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

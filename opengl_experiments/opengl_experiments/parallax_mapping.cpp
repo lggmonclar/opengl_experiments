@@ -1,6 +1,6 @@
 #include "parallax_mapping.h"
 
-ParallaxMappingScene::ParallaxMappingScene() {
+ParallaxMappingScene::ParallaxMappingScene(const unsigned int screenWidth, const unsigned int screenHeight) : Scene(screenWidth, screenHeight) {
 	parallaxMapShader.use();
 	parallaxMapShader.setInt("diffuseMap", 0);
 	parallaxMapShader.setInt("normalMap", 1);

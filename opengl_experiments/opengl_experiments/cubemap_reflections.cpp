@@ -1,6 +1,6 @@
 #include "cubemap_reflections.h"
 
-CubemapReflectionsScene::CubemapReflectionsScene() {
+CubemapReflectionsScene::CubemapReflectionsScene(const unsigned int screenWidth, const unsigned int screenHeight) : Scene(screenWidth, screenHeight) {
 	glGenFramebuffers(6, reflectionFBOs);
 
 	glGenTextures(1, &dynamicCubemapID);

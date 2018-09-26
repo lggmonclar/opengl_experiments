@@ -1,6 +1,6 @@
 #include "directional_shadow_mapping.h"
 
-DirectionalShadowMappingScene::DirectionalShadowMappingScene() {
+DirectionalShadowMappingScene::DirectionalShadowMappingScene(const unsigned int screenWidth, const unsigned int screenHeight): Scene(screenWidth, screenHeight) {
 	GenerateDepthMap(true);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)

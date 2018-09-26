@@ -17,6 +17,8 @@
 #include "omnidirectional_shadow_mapping.h"
 #include "normal_mapping.h"
 #include "parallax_mapping.h"
+#include "bloom.h"
+#include "deferred_rendering.h"
 
 
 void famebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -131,9 +133,8 @@ int main() {
 }
 
 template <class T> void loadScene() {
-	currentScene.reset(new T());
+	currentScene.reset(new T(WINDOW_WIDTH, WINDOW_HEIGHT));
 	camera = Vector3(0.0f, 0.0f, 3.0f);
-	currentScene->setViewport(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void renderSceneMenu() {
@@ -185,6 +186,22 @@ void renderSceneMenu() {
 		ImGui::PushID(loadButtonId++);
 		if (ImGui::Button("Load Scene")) {
 			loadScene<ParallaxMappingScene>();
+		}
+		ImGui::PopID();
+	}
+	if (ImGui::CollapsingHeader("Bloom")) {
+		ImGui::TextWrapped("Bloom.");
+		ImGui::PushID(loadButtonId++);
+		if (ImGui::Button("Load Scene")) {
+			loadScene<BloomScene>();
+		}
+		ImGui::PopID();
+	}
+	if (ImGui::CollapsingHeader("Deferred Rendering")) {
+		ImGui::TextWrapped("DR");
+		ImGui::PushID(loadButtonId++);
+		if (ImGui::Button("Load Scene")) {
+			loadScene<DeferredRenderingScene>();
 		}
 		ImGui::PopID();
 	}

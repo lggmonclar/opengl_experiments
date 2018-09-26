@@ -1,21 +1,16 @@
-﻿  main.cpp
+﻿  deferred_rendering.cpp
+c:\users\lug\documents\opengl-experiments\libraries\include\math\vector2.h(63): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\libraries\include\math\vector3.h(125): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(117): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(118): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\camera.h(119): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\shader.h(53): warning C4101: 'infoLog': unreferenced local variable
 c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\shader.h(52): warning C4101: 'success': unreferenced local variable
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\normal_mapping.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\normal_mapping.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\parallax_mapping.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\parallax_mapping.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(103): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(116): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(252): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(253): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(257): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(258): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(260): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(261): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\main.cpp(269): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\deferred_rendering.cpp(47): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\deferred_rendering.cpp(51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\deferred_rendering.cpp(52): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\deferred_rendering.cpp(53): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\deferred_rendering.cpp(101): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\deferred_rendering.cpp(102): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\lug\documents\opengl-experiments\opengl_experiments\opengl_experiments\deferred_rendering.cpp(144): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   opengl_experiments.vcxproj -> C:\Users\Lug\Documents\opengl-experiments\opengl_experiments\Debug\opengl_experiments.exe

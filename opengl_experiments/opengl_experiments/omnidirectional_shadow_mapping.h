@@ -9,7 +9,7 @@
 
 class OmnidirectionalShadowMappingScene : public Scene {
 public:
-	OmnidirectionalShadowMappingScene();
+	OmnidirectionalShadowMappingScene(const unsigned int screenWidth, const unsigned int screenHeight);
 	void Draw(Camera& camera, const Matrix4& P);
 	void DrawPointLights(const Shader & shader, const Matrix4 & V, const Matrix4 & P);
 	void DrawObjects(const Shader &shader, const Matrix4& V, const Matrix4& P);

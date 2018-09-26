@@ -72,6 +72,12 @@
     <ClCompile Include="parallax_mapping.cpp">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="bloom.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="deferred_rendering.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -117,6 +123,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parallax_mapping.h">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="bloom.h">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="deferred_rendering.h">
       <Filter>Header Files\scenes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -251,6 +263,36 @@
       <Filter>Resource Files\shaders</Filter>
     </None>
     <None Include="shaders\17.parallax_map.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\18.bloom.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\18.bloom.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\18.bloom_final.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\18.bloom_final.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\18.blur.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\18.blur.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\19.deferred_lighting.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\19.deferred_lighting.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\19.g_buffer.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\19.g_buffer.vert">
       <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
